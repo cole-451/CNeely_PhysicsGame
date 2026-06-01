@@ -4087,10 +4087,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114867980783319278, guid: e2e6970f9dbe45743858950d9b85475f, type: 3}
+      propertyPath: UseDoors.Array.data[0].Door
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1754051122497700, guid: e2e6970f9dbe45743858950d9b85475f, type: 3}
     - {fileID: 1413950887003476, guid: e2e6970f9dbe45743858950d9b85475f, type: 3}
+    - {fileID: 1420253005472940, guid: e2e6970f9dbe45743858950d9b85475f, type: 3}
+    - {fileID: 1191541804383194, guid: e2e6970f9dbe45743858950d9b85475f, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1524675794122334, guid: e2e6970f9dbe45743858950d9b85475f, type: 3}
