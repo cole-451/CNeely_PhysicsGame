@@ -24,23 +24,19 @@ public class BulletController : MonoBehaviour
         GlidingMovement();
         if (Keyboard.current.wKey.isPressed == true)
         {
-            //TODO: add logic to add force to move up.
             rb.AddForce(Vector3.up * baseSpeed);
         }
         if (Keyboard.current.aKey.isPressed == true)
         {
             rb.AddForce(Vector3.left * baseSpeed);
-            //TODO: add logic to add force to move left.
         }
         if (Keyboard.current.sKey.isPressed == true)
         {
             rb.AddForce(Vector3.right * baseSpeed);
-            //TODO: add logic to add force to move right.
         }
         if (Keyboard.current.dKey.isPressed == true)
         {
             rb.AddForce(Vector3.down * baseSpeed);
-            //TODO: add logic to add force to move down.
         }
     }
 
