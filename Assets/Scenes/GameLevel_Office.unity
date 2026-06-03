@@ -3807,7 +3807,7 @@ Transform:
   m_GameObject: {fileID: 868578740}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.17585, y: 19.325, z: 12.7}
+  m_LocalPosition: {x: -12.17585, y: 19.325, z: 12.381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4459,7 +4459,7 @@ GameObject:
   - component: {fileID: 984700821}
   - component: {fileID: 984700820}
   m_Layer: 0
-  m_Name: LeftFloorCollision
+  m_Name: BottomFloor Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4474,8 +4474,8 @@ Transform:
   m_GameObject: {fileID: 984700818}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1028, y: 0.0285, z: 0.1382}
-  m_LocalScale: {x: 0.08943911, y: 0.32152933, z: 0.092543}
+  m_LocalPosition: {x: -0.042, y: 0.0285, z: 0.1382}
+  m_LocalScale: {x: 0.20889594, y: 0.32152933, z: 0.092543}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 785459514}
