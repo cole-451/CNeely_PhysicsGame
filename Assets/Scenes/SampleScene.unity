@@ -6228,7 +6228,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 22649980}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 0.25
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -6259,7 +6259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5e87e71e243d9041924b1d9dc05370e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletController
-  baseSpeed: 15
+  baseSpeed: 20
   maxThrustSpeed: 400
   minThrustSpeed: 3
   thrustFactor: 15
