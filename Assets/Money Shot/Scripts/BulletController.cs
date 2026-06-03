@@ -26,15 +26,15 @@ public class BulletController : MonoBehaviour
         {
             rb.AddForce(Vector3.up * baseSpeed);
         }
-        if (Keyboard.current.aKey.isPressed == true)
+        else if (Keyboard.current.aKey.isPressed == true)
         {
             rb.AddForce(Vector3.left * baseSpeed);
         }
-        if (Keyboard.current.sKey.isPressed == true)
+        else if (Keyboard.current.sKey.isPressed == true)
         {
             rb.AddForce(Vector3.right * baseSpeed);
         }
-        if (Keyboard.current.dKey.isPressed == true)
+        else if (Keyboard.current.dKey.isPressed == true)
         {
             rb.AddForce(Vector3.down * baseSpeed);
         }

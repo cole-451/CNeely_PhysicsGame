@@ -6,16 +6,16 @@ using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
-    public float money;
-    public TMP_Text moneyText;
+    public float score;
+    public TMP_Text scoreText;
 
     public GameObject gameOver;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        money = 0.00f;
-        Time.timeScale = 1;
+        score = 0.00f;
+        Time.timeScale = 0.75f;
 
         gameOver.SetActive(false);
     }
@@ -23,12 +23,12 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moneyText.text = "$" + money.ToString("F2");
+        scoreText.text = score.ToString("F2");
     }
 
-    public void AddMoney(int amt)
+    public void AddScore(int amt)
     {
-        money += amt;
+        score += amt;
     }
 
     public void GameOver()
@@ -40,7 +40,7 @@ public class Game : MonoBehaviour
 
     public void ResetGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("GameLevel_Office");
     }
 
     
