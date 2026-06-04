@@ -47,6 +47,8 @@ public class Game : Singleton<Game>
         soundSystem = GetComponent<AudioSource>();
 
         
+
+        
         controlPrompt.SetActive(true);
 
         gameOver.SetActive(false);
@@ -100,6 +102,11 @@ public class Game : Singleton<Game>
         gameOver.SetActive(true);
         Time.timeScale = 0;
         
+    }
+
+    public void EpicWin()
+    {
+
     }
 
     public void ResetGame()

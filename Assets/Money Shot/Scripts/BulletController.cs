@@ -50,15 +50,7 @@ public class BulletController : Singleton<BulletController>
 
     private void GlidingMovement()
     {
-        // pitch will use a sine wave, cause pointing up will make us go down, while pointing down will make us speed up
-        float pitchInRads = transform.eulerAngles.x * Mathf.Deg2Rad;
-        float mappedPitch = Mathf.Sin(pitchInRads) * thrustFactor;
-        Vector3 glidingForce = Vector3.forward * currentThrustSpeed;
-
-        currentThrustSpeed += mappedPitch;
-
-        currentThrustSpeed = Mathf.Clamp(currentThrustSpeed, 0, maxThrustSpeed);
-        // ultimately the lines above are scrapped.
+       
 
         rb.AddRelativeForce(Vector3.forward * baseSpeed);
         //rb.AddRelativeForce(glidingForce);
@@ -67,11 +59,18 @@ public class BulletController : Singleton<BulletController>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "KILLTHISGUY" && collision.gameObject.tag != "bullet")
+        if (collision.gameObject.tag != "bullet")
         {
-            Game.Instance.LoseLife(1);
             Debug.Log($"I am getting killed on {collision.gameObject.name}");
             Destroy(gameObject);
+            if(collision.gameObject.tag != "KILLTHISGUY")
+            {
+            Game.Instance.LoseLife(1);
+            }
+            else
+            {
+                // you win!!!
+            }
             
         }
     }
