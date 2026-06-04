@@ -1,7 +1,10 @@
 using TMPro;
+using Unity.Cinemachine;
 using Unity.VectorGraphics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class Game : Singleton<Game>
@@ -16,6 +19,21 @@ public class Game : Singleton<Game>
 
     [SerializeField]public GameObject BulletPrefab;
 
+    private CinemachineFollow bulletCamera;
+
+   [SerializeField] private Camera idleCamera;
+
+    public AudioSource soundSystem;
+
+    public enum GameState
+    {
+        StartShot,
+        LiveShot,
+        GameOver
+    }
+
+    public GameState state;
+
 
 
     private bool bulletFired = false;
@@ -26,25 +44,43 @@ public class Game : Singleton<Game>
         bulletsLeft = 3;
         Time.timeScale = 0.75f;
 
+        soundSystem = GetComponent<AudioSource>();
+
+        
         controlPrompt.SetActive(true);
 
         gameOver.SetActive(false);
+
+        idleCamera.enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        bulletText.text = bulletsLeft.ToString("F2") + " SHOTS REMAIN";
+        bulletText.text = bulletsLeft.ToString() + " SHOTS REMAIN";
 
-        if(bulletsLeft <= 0)
+
+        if (bulletsLeft <= 0)
         {
             GameOver();
         }
     }
 
+    private void FixedUpdate()
+    {
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            soundSystem.Play();
+            FireBullet();
+            bulletCamera = BulletController.Instance.GetComponent<CinemachineFollow>();
+            idleCamera.enabled = false;
+            bulletCamera.enabled = true;
+        }
+        
+    }
+
     public void FireBullet()
     {
-        // perhaps find a way to switch to the bullet's cinemachine camera?
         GameObject.Instantiate(BulletPrefab);
         controlPrompt.SetActive(false);
 
@@ -53,6 +89,10 @@ public class Game : Singleton<Game>
     public void LoseLife(int amt)
     {
         bulletsLeft -= amt;
+        controlPrompt.SetActive(true);
+        idleCamera.enabled = true;
+
+
     }
 
     public void GameOver()

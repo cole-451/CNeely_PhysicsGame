@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3715106158527548807}
   m_Layer: 0
   m_Name: BulletController
-  m_TagString: Untagged
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 4214153352331640283}
   m_Layer: 0
   m_Name: CinemachineCamera
-  m_TagString: Untagged
+  m_TagString: bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -284,6 +284,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bullet
       objectReference: {fileID: 0}
+    - target: {fileID: 151986, guid: 9afc33429a8358b4cade5322a4dc1e36, type: 3}
+      propertyPath: m_TagString
+      value: bullet
+      objectReference: {fileID: 0}
     - target: {fileID: 433366, guid: 9afc33429a8358b4cade5322a4dc1e36, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -362,7 +366,7 @@ MonoBehaviour:
   maxThrustSpeed: 400
   minThrustSpeed: 3
   thrustFactor: 15
-  cameraTransform: {fileID: 8711556371691295546}
+  bulletCam: {fileID: 0}
 --- !u!54 &1378860198224205736
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -416,7 +420,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 646fd89b6688c42489f48c656824958a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -448,8 +452,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.037800692
-        value: 0
+        time: 0.0068711266
+        value: 0.12698364
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -457,8 +461,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.8487973
-        value: 0.48412699
+        time: 0.9209714
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
