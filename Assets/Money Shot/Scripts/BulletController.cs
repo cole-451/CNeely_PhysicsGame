@@ -1,7 +1,8 @@
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class BulletController : MonoBehaviour
+public class BulletController : Singleton<BulletController>
 {
     [SerializeField] private float baseSpeed;
      private float currentThrustSpeed;
@@ -9,14 +10,14 @@ public class BulletController : MonoBehaviour
     [SerializeField] private float minThrustSpeed;
     [SerializeField] private float thrustFactor;
 
-    [SerializeField] private Transform cameraTransform;
+    [SerializeField] private CinemachineFollow cameraTransform;
 
     private Rigidbody rb;
 
     void Start()
     {
-        cameraTransform = Camera.main.transform.parent;
         rb = GetComponent<Rigidbody>();
+        cameraTransform = GetComponent<CinemachineFollow>();
     }
 
     private void FixedUpdate()
@@ -55,13 +56,20 @@ public class BulletController : MonoBehaviour
         currentThrustSpeed += mappedPitch;
 
         currentThrustSpeed = Mathf.Clamp(currentThrustSpeed, 0, maxThrustSpeed);
+        // ultimately the lines above are scrapped.
 
         rb.AddRelativeForce(Vector3.forward * baseSpeed);
         //rb.AddRelativeForce(glidingForce);
     }
-    private void ManagePlaneRotation()
+   
+
+    private void OnCollisionEnter(Collision collision)
     {
-        Quaternion targetRotation = Quaternion.Euler(cameraTransform.eulerAngles.x, cameraTransform.eulerAngles.y, transform.eulerAngles.z);
-        transform.rotation = targetRotation;
+        if (collision.gameObject.tag != "KILLTHISGUY")
+        {
+            Destroy(gameObject);
+            // find a way to call Game's LoseLife()
+            Game.Instance.LoseLife(1);
+        }
     }
 }

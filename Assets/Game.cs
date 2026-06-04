@@ -4,18 +4,29 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
-public class Game : MonoBehaviour
+public class Game : Singleton<Game>
 {
-    public float score;
-    public TMP_Text scoreText;
+    public int bulletsLeft;
+    public TMP_Text bulletText;
 
+    public GameObject controlPrompt;
     public GameObject gameOver;
+
+    [SerializeField]public GameObject bulletSpawnLocation;
+
+    [SerializeField]public GameObject BulletPrefab;
+
+
+
+    private bool bulletFired = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        score = 0.00f;
+        bulletsLeft = 3;
         Time.timeScale = 0.75f;
+
+        controlPrompt.SetActive(true);
 
         gameOver.SetActive(false);
     }
@@ -23,12 +34,25 @@ public class Game : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreText.text = score.ToString("F2");
+        bulletText.text = bulletsLeft.ToString("F2") + " SHOTS REMAIN";
+
+        if(bulletsLeft <= 0)
+        {
+            GameOver();
+        }
     }
 
-    public void AddScore(int amt)
+    public void FireBullet()
     {
-        score += amt;
+        // perhaps find a way to switch to the bullet's cinemachine camera?
+        GameObject.Instantiate(BulletPrefab);
+        controlPrompt.SetActive(false);
+
+    }
+
+    public void LoseLife(int amt)
+    {
+        bulletsLeft -= amt;
     }
 
     public void GameOver()
