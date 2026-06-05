@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game : Singleton<Game>
 {
@@ -23,7 +24,20 @@ public class Game : Singleton<Game>
 
    [SerializeField] private Camera idleCamera;
 
-    public AudioSource soundSystem;
+    public AudioSource shotSoundSystem;
+
+    public AudioSource bulletTimeSound;
+
+    public AudioSource gunCockSound;
+
+    public float bulletTime = 100.0f;
+
+    public Slider bulletTimeSlider;
+
+    private bool bulletTimeActive = false;
+    public float bulletTimeDrainRate = 20f; // units per second (real time)
+    private float normalTimeScale = 0.75f;
+    private float bulletTimeScale = 0.2f;   // how slow bullet time gets
 
     public enum GameState
     {
@@ -44,12 +58,14 @@ public class Game : Singleton<Game>
         bulletsLeft = 3;
         Time.timeScale = 0.75f;
 
-        soundSystem = GetComponent<AudioSource>();
+        shotSoundSystem = GetComponent<AudioSource>();
 
-        
+        bulletTimeSlider.gameObject.SetActive(false);
 
         
         controlPrompt.SetActive(true);
+
+        
 
         gameOver.SetActive(false);
 
@@ -62,6 +78,13 @@ public class Game : Singleton<Game>
         bulletText.text = bulletsLeft.ToString() + " SHOTS REMAIN";
 
 
+        if (bulletTimeSlider.IsActive())
+        {
+         bulletTimeSlider.value = bulletTime;
+
+        }
+
+
         if (bulletsLeft <= 0)
         {
             GameOver();
@@ -72,18 +95,26 @@ public class Game : Singleton<Game>
     {
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            soundSystem.Play();
+            shotSoundSystem.Play();
             FireBullet();
             bulletCamera = BulletController.Instance.GetComponent<CinemachineFollow>();
             idleCamera.enabled = false;
             bulletCamera.enabled = true;
+            // if shift pressed, activate bulletTime
         }
+            if (Keyboard.current.shiftKey.wasPressedThisFrame && BulletController.Instance.isActiveAndEnabled)
+            {
+                bulletTimeSound.Play();
+                InitiateBulletTime();
+            }
         
     }
 
     public void FireBullet()
     {
         GameObject.Instantiate(BulletPrefab);
+        bulletTimeSlider.gameObject.SetActive(true);
+
         controlPrompt.SetActive(false);
 
     }
@@ -93,7 +124,13 @@ public class Game : Singleton<Game>
         bulletsLeft -= amt;
         controlPrompt.SetActive(true);
         idleCamera.enabled = true;
+        gunCockSound.Play();
 
+
+    }
+
+    public void InitiateBulletTime()
+    {
 
     }
 
