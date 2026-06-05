@@ -30,6 +30,8 @@ public class Game : Singleton<Game>
 
     public AudioSource gunCockSound;
 
+    public AudioSource bulletTimeExitSound;
+
     public float bulletTime = 100.0f;
 
     public Slider bulletTimeSlider;
@@ -56,7 +58,7 @@ public class Game : Singleton<Game>
     void Start()
     {
         bulletsLeft = 3;
-        Time.timeScale = 0.75f;
+        Time.timeScale = normalTimeScale;
 
         shotSoundSystem = GetComponent<AudioSource>();
 
@@ -84,10 +86,29 @@ public class Game : Singleton<Game>
 
         }
 
+        // Bullet time drain
+        if (bulletTimeActive)
+        {
+            bulletTime -= bulletTimeDrainRate * Time.unscaledDeltaTime;
+            bulletTime = Mathf.Max(bulletTime, 0f); // clamp to 0
+
+            // End bullet time if drained or shift released
+            if (bulletTime <= 0 || !Keyboard.current.shiftKey.isPressed)
+            {
+                EndBulletTime();
+            }
+        }
+
 
         if (bulletsLeft <= 0)
         {
             GameOver();
+        }
+
+        if (Keyboard.current.shiftKey.wasPressedThisFrame && BulletController.Instance.isActiveAndEnabled)
+        {
+            bulletTimeSound.Play();
+            InitiateBulletTime();
         }
     }
 
@@ -102,11 +123,7 @@ public class Game : Singleton<Game>
             bulletCamera.enabled = true;
             // if shift pressed, activate bulletTime
         }
-            if (Keyboard.current.shiftKey.wasPressedThisFrame && BulletController.Instance.isActiveAndEnabled)
-            {
-                bulletTimeSound.Play();
-                InitiateBulletTime();
-            }
+          
         
     }
 
@@ -114,6 +131,7 @@ public class Game : Singleton<Game>
     {
         GameObject.Instantiate(BulletPrefab);
         bulletTimeSlider.gameObject.SetActive(true);
+        bulletTime = 100f;
 
         controlPrompt.SetActive(false);
 
@@ -131,7 +149,16 @@ public class Game : Singleton<Game>
 
     public void InitiateBulletTime()
     {
+        if (bulletTime <= 0) return; // don't activate if empty
 
+        bulletTimeActive = true;
+        Time.timeScale = bulletTimeScale;
+    }
+    public void EndBulletTime()
+    {
+        bulletTimeActive = false;
+        Time.timeScale = normalTimeScale;
+        bulletTimeExitSound.Play();
     }
 
     public void GameOver()
