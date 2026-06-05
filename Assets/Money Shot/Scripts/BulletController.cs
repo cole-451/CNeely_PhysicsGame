@@ -11,12 +11,16 @@ public class BulletController : Singleton<BulletController>
     [SerializeField] private float thrustFactor;
     [SerializeField] public CinemachineFollow bulletCam;
 
-    
+    private bool hasCollided = false;
+
+
+
 
     private Rigidbody rb;
 
     void Start()
     {
+        hasCollided = false;
         rb = GetComponent<Rigidbody>();
         bulletCam = GetComponent<CinemachineFollow>();
        
@@ -59,8 +63,9 @@ public class BulletController : Singleton<BulletController>
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag != "bullet")
+        if (collision.gameObject.tag != "bullet" && !hasCollided)
         {
+            hasCollided = true;
             Debug.Log($"I am getting killed on {collision.gameObject.name}");
             Game.Instance.EndBulletTime();
             Destroy(gameObject);
