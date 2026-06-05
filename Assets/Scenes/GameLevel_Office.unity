@@ -13478,10 +13478,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BulletController
       objectReference: {fileID: 0}
-    - target: {fileID: 2451354370159916936, guid: 4ad7d349d9d849d4d91f0acc551e94b4, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3715106158527548807, guid: 4ad7d349d9d849d4d91f0acc551e94b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.07
