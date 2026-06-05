@@ -136,14 +136,12 @@ public class Game : Singleton<Game>
 
     public void GameOver()
     {
-        gameOver.SetActive(true);
-        Time.timeScale = 0;
-        
+        SceneManager.LoadScene("YouSuck");
     }
 
     public void EpicWin()
     {
-
+        SceneManager.LoadScene("YouWin");
     }
 
     public void ResetGame()
