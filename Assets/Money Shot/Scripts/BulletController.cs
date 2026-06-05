@@ -62,6 +62,7 @@ public class BulletController : Singleton<BulletController>
         if (collision.gameObject.tag != "bullet")
         {
             Debug.Log($"I am getting killed on {collision.gameObject.name}");
+            Game.Instance.EndBulletTime();
             Destroy(gameObject);
             if(collision.gameObject.tag != "KILLTHISGUY")
             {
@@ -69,6 +70,7 @@ public class BulletController : Singleton<BulletController>
             }
             else
             {
+                Game.Instance.EpicWin();
                 // you win!!!
             }
             
